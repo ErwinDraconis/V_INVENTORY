@@ -1,0 +1,157 @@
+﻿<UserControl x:Class="ValeoItacCheck.SinglePcbView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ValeoItacCheck"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:local1="clr-namespace:V_INVENTORY"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <local:StatusToColorConverter x:Key="StatusToColorConverter"/>
+
+        <DataTemplate x:Key="OffContentTemplate">
+            <TextBlock Text="{Binding ContainerName, StringFormat='Enabled {0}'}" />
+        </DataTemplate>
+        <DataTemplate x:Key="OnContentTemplate">
+            <TextBlock Text="{Binding ContainerName, StringFormat='Disabled {0}'}" />
+        </DataTemplate>
+        <local:ToggleContentTemplateSelector x:Key="ToggleContentTemplateSelector" OffTemplate="{StaticResource OffContentTemplate}" OnTemplate="{StaticResource OnContentTemplate}" />
+
+    </UserControl.Resources>
+    
+    <Grid>
+            <!-- Define Grid Rows -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <!-- Header row -->
+                <RowDefinition Height="*"/>
+                <!-- Main content row -->
+            </Grid.RowDefinitions>
+
+            <!-- Header Section -->
+            <Border Grid.Row="0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="Blue" Offset="0.0"/>
+                        <GradientStop Color="#FF39C0F9" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <TextBlock Text="PCB View" Foreground="White" FontSize="22" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </Border>
+
+            <!-- Main Content Section -->
+            <Grid Grid.Row="1" Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+
+                        <mah:ToggleSwitch Name="Toggle" OnCommand="{Binding OnBtnContainer}" OffCommand="{Binding OffBtnContainer}" IsOn="{Binding isToggleEnabled}">
+                            <mah:ToggleSwitch.OffContent>
+                                <ContentPresenter Content="{Binding}" ContentTemplateSelector="{StaticResource ToggleContentTemplateSelector}" />
+                            </mah:ToggleSwitch.OffContent>
+                            <mah:ToggleSwitch.OnContent>
+                                <ContentPresenter Content="{Binding}" ContentTemplateSelector="{StaticResource ToggleContentTemplateSelector}" />
+                            </mah:ToggleSwitch.OnContent>
+                        </mah:ToggleSwitch>
+
+                        <TextBox Name="txtContainer" IsEnabled="{Binding isTxtContainerEnabled}" Grid.Column="1"
+                                 Text="{Binding ContainerText, UpdateSourceTrigger=PropertyChanged}"
+                                 FontSize="18" FontWeight="Medium"
+                                 Margin="8"
+                                 mah:TextBoxHelper.UseFloatingWatermark="True"
+                                 mah:TextBoxHelper.Watermark="{Binding ContainerName}"
+                                 KeyDown="txtContainer_KeyDown">
+                            </TextBox>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="txtSNR" Grid.Column="1"
+                             IsEnabled="{Binding isTxtEnabled}"
+                             Text="{Binding SNR, UpdateSourceTrigger=PropertyChanged}"
+                             FontSize="18" FontWeight="Medium"
+                             Margin="8"
+                             mah:TextBoxHelper.UseFloatingWatermark="True"
+                             mah:TextBoxHelper.Watermark="Scan a serial number to proceed"
+                             KeyDown="txtSNR_KeyDown">
+                            </TextBox>
+
+                        </Grid>
+
+                    </StackPanel>
+                </Grid>
+
+            <Grid Grid.Row="1" Background="#F9F9F9" Visibility="{Binding isResultGridVisible}" >
+                <Border 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Padding="20" 
+                CornerRadius="10"
+                BorderThickness="1"
+                BorderBrush="#D3D3D3"
+                Background="{Binding PcbRslt.Status, Converter={StaticResource StatusToColorConverter}}"
+                MaxWidth="400"
+                MaxHeight="300">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- Labels -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- Values -->
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Container -->
+                        <TextBlock Text="Container:" FontSize="18"  Grid.Row="0" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding PcbRslt.Container}" FontSize="18" FontWeight="Bold" Grid.Row="0" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+
+                        <!-- PCB SN -->
+                        <TextBlock Text="PCB SN:" FontSize="18" Grid.Row="1" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding PcbRslt.SerialNumber}" FontWeight="Bold" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+
+                        <!-- PCB PN -->
+                        <TextBlock Text="PCB PN:" FontSize="18"  Grid.Row="2" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding PcbRslt.PartNumber}" FontWeight="Bold" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+
+                        <!-- SAP PN -->
+                        <TextBlock Text="SAP PN:" FontSize="18"  Grid.Row="3" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding PcbRslt.SapPn}" FontWeight="Bold" FontSize="18" Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+
+                        <!-- PCB Coefficient -->
+                        <TextBlock Text="PCB Coefficient:" FontSize="18" Grid.Row="4" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding PcbRslt.PcbCoef}" FontWeight="Bold"  FontSize="18" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+            </Grid>
+                
+        </Grid>
+        
+        </Grid>
+
+</UserControl>

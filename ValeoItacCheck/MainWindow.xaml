@@ -1,0 +1,71 @@
+﻿<mah:MetroWindow x:Class="ValeoItacCheck.MainWindow" 
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 xmlns:local="clr-namespace:ValeoItacCheck"
+                 mc:Ignorable="d"
+                 WindowStartupLocation="CenterScreen"
+                 WindowState="Maximized"
+                 Title="V-Inventory"
+                 Height="450" Width="800">
+
+    <!-- Define Grid with two rows, one for main content and one for footer -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <!-- Main content region -->
+            <RowDefinition Height="Auto" />
+            <!-- Footer region -->
+        </Grid.RowDefinitions>
+
+        <!-- Main Shell Region for application content -->
+        <ContentControl Grid.Row="0" x:Name="MainShellRegion" />
+
+        <!-- Footer -->
+        <!-- Footer -->
+        <Grid Grid.Row="1" Background="#FFDDDDDD">
+            <!-- Define the columns for each piece of information -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <!-- Server label -->
+                <ColumnDefinition Width="*" />
+                <!-- Server value -->
+                <ColumnDefinition Width="Auto" />
+                <!-- Station label -->
+                <ColumnDefinition Width="*" />
+                <!-- Station value -->
+                <ColumnDefinition Width="Auto" />
+                <!-- Company label -->
+                <ColumnDefinition Width="*" />
+                <!-- Company value -->
+                <ColumnDefinition Width="Auto" />
+                <!-- Version label -->
+                <ColumnDefinition Width="*" />
+                <!-- Version value -->
+            </Grid.ColumnDefinitions>
+
+            <!-- iTAC Server Label and Value -->
+            <TextBlock FontWeight="Bold" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Model.ItacServer}" Grid.Column="1" VerticalAlignment="Center" Margin="5 0 0 0"/>
+
+            <!-- iTAC Station Label and Value -->
+            <TextBlock FontWeight="Bold" Grid.Column="2" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Model.ItacStation}" Grid.Column="3" VerticalAlignment="Center"/>
+
+            <!-- Company Name Label and Value -->
+            <TextBlock FontWeight="Bold" Grid.Column="4" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Model.ItacUser}" Grid.Column="5" VerticalAlignment="Center"/>
+
+            <!-- Build Version Label and Value -->
+            <TextBlock Text="{Binding Model.AppbuildVersion}" Grid.Column="6" VerticalAlignment="Center"/>
+
+            <!-- Company name -->
+            <TextBlock Text="{Binding Model.CompanyName}" Grid.Column="7" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 5 0"/>
+        </Grid>
+
+    </Grid>
+</mah:MetroWindow>
