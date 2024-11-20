@@ -160,14 +160,14 @@ namespace ValeoItacCheck
             Application.Current.Shutdown();
         }
 
-        private void txtSNR_KeyDown(object sender, KeyEventArgs e)
+        private async void txtSNR_KeyDown(object sender, KeyEventArgs e)
         {
             isTxtEnabled = false;
             if (e.Key == Key.Enter)
             {
                 if(SNR.Length > 3)
                 {
-                    GetPCBData();
+                    await GetPCBData();
                     SNR = string.Empty;
                     txtSNR.Focus();
                 }
@@ -189,7 +189,7 @@ namespace ValeoItacCheck
 
         #region Methodes
 
-        private async void GetPCBData()
+        private async Task GetPCBData()
         {
             PcbRslt.clear(); isResultGridVisible = Visibility.Collapsed;
 #if RELEASE
@@ -237,7 +237,6 @@ namespace ValeoItacCheck
                     }
                 });
             isResultGridVisible = Visibility.Visible;
-            
         }
 
         private async Task<bool> GetSAPDataAsync()

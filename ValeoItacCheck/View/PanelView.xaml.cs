@@ -156,14 +156,14 @@ namespace ValeoItacCheck
             _connectionTimer.Stop();
         }
 
-        private void txtSNR_KeyDown(object sender, KeyEventArgs e)
+        private async void txtSNR_KeyDown(object sender, KeyEventArgs e)
         {
             isTxtEnabled = false;
             if (e.Key == Key.Enter)
             {
                 if(SNR.Length > 3)
                 {
-                    LoadPositions();
+                    await LoadPositions();
                 }
             }
             isTxtEnabled = true;
@@ -182,7 +182,7 @@ namespace ValeoItacCheck
 
         #region Methodes
 
-        private async void LoadPositions()
+        private async Task LoadPositions()
         {
             try
             {
