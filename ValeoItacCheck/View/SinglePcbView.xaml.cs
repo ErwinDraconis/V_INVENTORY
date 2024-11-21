@@ -162,7 +162,6 @@ namespace ValeoItacCheck
 
         private async void txtSNR_KeyDown(object sender, KeyEventArgs e)
         {
-            isTxtEnabled = false;
             if (e.Key == Key.Enter)
             {
                 if(SNR.Length > 3)
@@ -172,7 +171,6 @@ namespace ValeoItacCheck
                     txtSNR.Focus();
                 }
             }
-            isTxtEnabled = true; 
         }
 
 

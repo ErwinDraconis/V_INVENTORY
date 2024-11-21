@@ -164,6 +164,8 @@ namespace ValeoItacCheck
                 if(SNR.Length > 3)
                 {
                     await LoadPositions();
+                    SNR = string.Empty;
+                    txtSNR.Focus();
                 }
             }
             isTxtEnabled = true;
