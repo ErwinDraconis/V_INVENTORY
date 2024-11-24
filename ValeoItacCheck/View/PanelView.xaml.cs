@@ -158,17 +158,17 @@ namespace ValeoItacCheck
 
         private async void txtSNR_KeyDown(object sender, KeyEventArgs e)
         {
-            isTxtEnabled = false;
             if (e.Key == Key.Enter)
             {
                 if(SNR.Length > 3)
                 {
+                    isTxtEnabled = false;
                     await LoadPositions();
+                    isTxtEnabled = true;
                     SNR = string.Empty;
                     txtSNR.Focus();
                 }
             }
-            isTxtEnabled = true;
         }
 
         private void txtContainer_KeyDown(object sender, KeyEventArgs e)

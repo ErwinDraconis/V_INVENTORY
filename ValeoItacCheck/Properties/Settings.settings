@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="BuildNumber" Type="System.String" Scope="User">
-      <Value Profile="(Default)">2.1.1</Value>
+      <Value Profile="(Default)">2.1.2</Value>
     </Setting>
     <Setting Name="Company" Type="System.String" Scope="User">
       <Value Profile="(Default)">Dectronic</Value>

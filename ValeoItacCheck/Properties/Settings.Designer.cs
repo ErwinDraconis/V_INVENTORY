@@ -25,7 +25,7 @@ namespace V_INVENTORY.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2.1.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.1.2")]
         public string BuildNumber {
             get {
                 return ((string)(this["BuildNumber"]));
